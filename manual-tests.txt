@@ -61,4 +61,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected results
 * Should display "Developer" for the user name.
 
+# Module 4: Constrain the input card number length
+
+## Test steps
+1. Build and run CiCo
+2. Enter more than 8 numbers into the field
+
+## Expected Results
+*Shouldn't go allow past the character limit of 8
+
+
 
