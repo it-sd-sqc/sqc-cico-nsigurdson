@@ -69,6 +69,12 @@ public class Main {
   public static class Update implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
       Main.processCard();
+
+      if (timeout != null ) {
+        timeout.cancel(); // Cancel current timeout
+      }
+      timeout = new Timeout();
+      timer.schedule(timeout,TIMEOUT_PANEL_MS); // reschedule the timeout
     }
   }
 
@@ -270,6 +276,7 @@ public class Main {
     updateButton.setForeground(Color.green);
     panelMain.add(updateButton);
 
+
     panelMain.add(Box.createVerticalGlue());
 
     // Status panel ///////////////////////////////////////////////////////////
@@ -292,6 +299,18 @@ public class Main {
     labelState.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
+
+    panelStatus.add(Box.createVerticalGlue());
+
+    JButton nextPersonButton = new JButton("OK");
+    nextPersonButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        doneProcessing(); // Brings us back to the main screen
+      }
+    });
+    nextPersonButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    panelStatus.add(nextPersonButton);
 
     panelStatus.add(Box.createVerticalGlue());
 
