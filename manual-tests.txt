@@ -61,4 +61,25 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 ## Expected results
 * Should display "Developer" for the user name.
 
+# Module 4: Constrain the input card number length
+
+## Test steps
+1. Build and run CiCo
+2. Enter more than 8 numbers into the field
+
+## Expected Results
+*Shouldn't go allow past the character limit of 8
+
+# Module 5: Button to cancel timeout
+
+## Test Steps
+1. Build and run CiCo.
+2. Enter 00000000 into the field and click Update.
+3. Enter nothing into the field and click Update.
+
+## Expected results
+* Should display a button that says "OK" to cancel the pending timeout and return to the main screen
+* If entered nothing you should still see the OK button to return back to the main screen for the next
+person that is ready to use it
+
 

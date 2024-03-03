@@ -41,10 +41,12 @@ public class Main {
     public void insertString(FilterBypass fb, int offset, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      String currentText = fb.getDocument().getText(0, fb.getDocument().getLength());
+      int newTextLength = currentText.length() + stringToAdd.length();
+
+      if (newTextLength <= MAX_LENGTH) {
         super.insertString(fb, offset, stringToAdd, attr);
-      }
-      else {
+      } else {
         Toolkit.getDefaultToolkit().beep();
       }
     }
@@ -53,10 +55,11 @@ public class Main {
     public void replace(FilterBypass fb, int offset, int lengthToDelete, String stringToAdd, AttributeSet attr)
         throws BadLocationException
     {
-      if (fb.getDocument() != null) {
+      String currentText = fb.getDocument().getText(0, fb.getDocument().getLength());
+      int newTextLength = currentText.length() - lengthToDelete + stringToAdd.length();
+      if (newTextLength <= MAX_LENGTH) {
         super.replace(fb, offset, lengthToDelete, stringToAdd, attr);
-      }
-      else {
+      } else {
         Toolkit.getDefaultToolkit().beep();
       }
     }
@@ -66,6 +69,12 @@ public class Main {
   public static class Update implements ActionListener {
     public void actionPerformed(ActionEvent evt) {
       Main.processCard();
+
+      if (timeout != null ) {
+        timeout.cancel(); // Cancel current timeout
+      }
+      timeout = new Timeout();
+      timer.schedule(timeout,TIMEOUT_PANEL_MS); // reschedule the timeout
     }
   }
 
@@ -260,11 +269,13 @@ public class Main {
     fieldNumber.setForeground(Color.magenta);
     panelMain.add(fieldNumber);
 
+
     JButton updateButton = new JButton("Update");
     updateButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     updateButton.addActionListener(new Update());
     updateButton.setForeground(Color.green);
     panelMain.add(updateButton);
+
 
     panelMain.add(Box.createVerticalGlue());
 
@@ -288,6 +299,18 @@ public class Main {
     labelState.setAlignmentX(JComponent.CENTER_ALIGNMENT);
     labelState.setForeground(Color.magenta);
     panelStatus.add(labelState);
+
+    panelStatus.add(Box.createVerticalGlue());
+
+    JButton nextPersonButton = new JButton("OK");
+    nextPersonButton.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        doneProcessing(); // Brings us back to the main screen
+      }
+    });
+    nextPersonButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+    panelStatus.add(nextPersonButton);
 
     panelStatus.add(Box.createVerticalGlue());
 
