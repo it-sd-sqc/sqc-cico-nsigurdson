@@ -82,4 +82,14 @@ Use `./build.sh` to build CiCo and `./run.sh` to run it if using the command lin
 * If entered nothing you should still see the OK button to return back to the main screen for the next
 person that is ready to use it
 
+# Module 6: Professional Color Scheme
+
+## Test Steps
+1. Build and run CiCo.
+2. Enter 00000000 into the field and click Update.
+3. Enjoy a monochromatic scheme primarily using neutral colors.
+
+## Expected results
+* Should display a monochromatic scheme primarily using neutral colors
+
 
